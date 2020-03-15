@@ -29,6 +29,9 @@ export default class PreviewImage extends React.Component {
                     if (this.props.imageView.center.x) {
                         viewer.viewport.panTo(this.props.imageView.center, true)
                         viewer.viewport.zoomTo(this.props.imageView.zoom)
+                        viewer.viewport.setRotation(
+                            this.props.imageView.rotation
+                        )
                     }
                 })
             }
@@ -54,7 +57,7 @@ export default class PreviewImage extends React.Component {
     }
 
     render() {
-        const ImageMenu = props => {
+        const ImageMenu = () => {
             const [anchorEl, setAnchorEl] = React.useState(null)
             const { t } = useTranslation()
 
@@ -120,16 +123,20 @@ export default class PreviewImage extends React.Component {
             )
         }
 
-        const ImageMenuOverlay = withStyles(theme => ({
+        const ImageMenuOverlay = withStyles(() => ({
             root: {
                 color: 'white',
             },
         }))(ImageMenu)
 
         return (
-            <div className="border-r border-gray-300 mr-2">
+            <div className="border-r border-gray-300 mr-2 w-1/2">
                 <div
-                    style={{ width: 300, height: 192, position: 'relative' }}
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        position: 'relative',
+                    }}
                     className="items-center flex justify-center mr-2"
                     id={`openseadragon${this.props.i}`}
                 >
